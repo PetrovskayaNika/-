@@ -1,26 +1,26 @@
 version: '3.8'
-
 services:
   loadbalancer:
     image: nginx:latest
     ports:
-      - "8080:80" 
+      - "8080:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf 
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - core-service
-      - math-service
+      - user-service
 
   core-service:
     build:
       context: .
       dockerfile: Dockerfile.core
     expose:
-      - "80" 
+      - "80"
 
-  math-service:
+  user-service:
     build:
       context: .
-      dockerfile: Dockerfile.math
+      dockerfile: Dockerfile.user
     expose:
-      - "80" 
+      - "80"
