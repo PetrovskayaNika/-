@@ -1,0 +1,25 @@
+services:
+  loadbalancer:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - core-service
+      - user-service
+
+  core-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.core
+    expose:
+      - "80"
+
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.user
+    expose:
+      - "80"

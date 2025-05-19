@@ -1,0 +1,9 @@
+FROM alpine:latest
+
+WORKDIR /app
+COPY ./bin/core-service /app/
+
+RUN chmod +x /app/core-service
+
+EXPOSE 80
+CMD ["/app/core-service"]
